@@ -1,0 +1,1342 @@
+DOCTYPE html>
+<html lang="pt-BR">
+<head><!D
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to 2005 - Frutiger Aero & Y2K Experience</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts: Inter & VT323 / Digital font styling -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* Frutiger Aero & Y2K Glassmorphic Design Token System */
+    :root {
+      --aero-blue: #00a4e4;
+      --aero-sky: #70c7f4;
+      --aero-green: #3cd070;
+      --aero-glass-bg: rgba(255, 255, 255, 0.45);
+      --aero-glass-border: rgba(255, 255, 255, 0.85);
+      --aero-glass-shadow: 0 15px 35px rgba(0, 100, 180, 0.25), 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow: hidden;
+      user-select: none;
+      background: #000;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Frutiger Aero Desktop Backdrop: Sky, Grass, Light Beams, Gloss */
+    .frutiger-bg {
+      background: linear-gradient(180deg, #0263b3 0%, #30a9e8 45%, #8ae3ff 70%, #52cb52 88%, #218c1e 100%);
+      position: relative;
+    }
+
+    /* Glossy glass reflection overlays */
+    .glass-panel {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.45) 100%);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: var(--aero-glass-shadow), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+    }
+
+    .glass-window-header {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(200, 235, 255, 0.7) 40%, rgba(110, 190, 245, 0.8) 50%, rgba(50, 150, 230, 0.85) 100%);
+      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    /* Frutiger Glossy Orb / Button Style */
+    .aero-btn {
+      background: linear-gradient(180deg, #ffffff 0%, #d4f0ff 45%, #7ac7f6 50%, #39a3e6 100%);
+      border: 1px solid #1c7bbd;
+      box-shadow: inset 0 1px 1px #ffffff, 0 3px 6px rgba(0,0,0,0.2);
+      transition: all 0.15s ease-in-out;
+    }
+    .aero-btn:hover {
+      background: linear-gradient(180deg, #ffffff 0%, #e8f7ff 45%, #9fd8fb 50%, #5bb2ec 100%);
+      box-shadow: inset 0 1px 2px #ffffff, 0 5px 12px rgba(0, 150, 255, 0.4);
+      transform: translateY(-1px);
+    }
+    .aero-btn:active {
+      background: linear-gradient(180deg, #39a3e6 0%, #7ac7f6 50%, #d4f0ff 100%);
+      transform: translateY(1px);
+    }
+
+    /* Green Glossy Action Button */
+    .aero-btn-green {
+      background: linear-gradient(180deg, #ffffff 0%, #cbfadb 45%, #5ce28b 50%, #20b355 100%);
+      border: 1px solid #127a36;
+      box-shadow: inset 0 1px 1px #ffffff, 0 3px 6px rgba(0,0,0,0.2);
+    }
+    .aero-btn-green:hover {
+      background: linear-gradient(180deg, #ffffff 0%, #e1ffee 45%, #7bf0a5 50%, #2cc864 100%);
+      box-shadow: inset 0 1px 2px #ffffff, 0 5px 12px rgba(0, 220, 100, 0.4);
+    }
+
+    /* Window Controls */
+    .win-btn {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .win-close { background: linear-gradient(180deg, #ff9e9e, #e63939); border: 1px solid #990000; color: white; }
+    .win-min { background: linear-gradient(180deg, #ffeb9e, #e6b839); border: 1px solid #997a00; color: #4a3800; }
+    .win-max { background: linear-gradient(180deg, #9effb6, #39e66b); border: 1px solid #009926; color: #003d10; }
+
+    /* Floating Bubbles Effect */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.3) 25%, rgba(0, 180, 255, 0.2) 60%, rgba(255, 255, 255, 0.8) 100%);
+      box-shadow: inset -2px -2px 6px rgba(0, 120, 220, 0.3), 0 4px 10px rgba(0,0,0,0.15);
+      backdrop-filter: blur(2px);
+      pointer-events: auto;
+      cursor: pointer;
+      animation: floatUp 12s infinite linear;
+      transition: transform 0.2s ease;
+    }
+    .bubble:hover {
+      transform: scale(1.15);
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(105vh) scale(0.8); opacity: 0; }
+      10% { opacity: 0.85; }
+      90% { opacity: 0.85; }
+      100% { transform: translateY(-20vh) scale(1.1); opacity: 0; }
+    }
+
+    /* Start Menu Taskbar */
+    .taskbar {
+      background: linear-gradient(180deg, rgba(20, 100, 180, 0.85) 0%, rgba(10, 50, 120, 0.95) 50%, rgba(5, 25, 70, 0.98) 100%);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .start-btn {
+      background: linear-gradient(180deg, #6fd936 0%, #3ba811 48%, #207d03 52%, #125400 100%);
+      border: 1px solid #a3ff75;
+      box-shadow: inset 0 1px 3px #d1ffb8, 0 2px 6px rgba(0,0,0,0.4);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+    }
+    .start-btn:hover {
+      filter: brightness(1.15);
+    }
+
+    /* Digital Camera Screen Effects */
+    .cam-timestamp {
+      font-family: 'VT323', monospace;
+      color: #ffb400;
+      text-shadow: 2px 2px 0px #000, -1px -1px 0px #000;
+    }
+
+    .scanline-overlay {
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      background-size: 100% 4px, 6px 100%;
+      pointer-events: none;
+    }
+
+    /* Scrollbars custom 2000s aero style */
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #e1f0fa;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #aadaf7, #5cb0e6);
+      border-radius: 6px;
+      border: 2px solid #e1f0fa;
+    }
+
+    /* CRT Flicker optional effect */
+    .crt-screen {
+      position: relative;
+      overflow: hidden;
+    }
+    .crt-screen::after {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: rgba(18, 16, 16, 0.05);
+      opacity: 0;
+      pointer-events: none;
+      animation: crtFlicker 0.15s infinite;
+    }
+
+    @keyframes crtFlicker {
+      0% { opacity: 0.02; }
+      50% { opacity: 0.05; }
+      100% { opacity: 0.02; }
+    }
+
+    /* Shiny reflection highlight */
+    .shine-sweep {
+      position: relative;
+      overflow: hidden;
+    }
+    .shine-sweep::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.4) 50%, transparent 55%);
+      transform: rotate(30deg);
+      pointer-events: none;
+      animation: shineSweep 8s infinite ease-in-out;
+    }
+    @keyframes shineSweep {
+      0% { transform: translateX(-100%) rotate(30deg); }
+      20% { transform: translateX(100%) rotate(30deg); }
+      100% { transform: translateX(100%) rotate(30deg); }
+    }
+  </style>
+</head>
+<body class="frutiger-bg h-screen w-screen relative flex flex-col justify-between overflow-hidden select-none">
+
+  <!-- Ambient Clouds & Glare -->
+  <div class="absolute inset-0 pointer-events-none z-0 opacity-40">
+    <div class="absolute top-4 left-10 w-96 h-32 bg-white rounded-full blur-3xl"></div>
+    <div class="absolute top-20 right-20 w-[500px] h-40 bg-white rounded-full blur-3xl"></div>
+    <div class="absolute bottom-28 left-1/3 w-[600px] h-32 bg-emerald-200/50 rounded-full blur-3xl"></div>
+    <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-white/30 via-transparent to-transparent pointer-events-none"></div>
+  </div>
+
+  <!-- Interactive Floating Bubbles Layer -->
+  <div id="bubble-container" class="absolute inset-0 z-0 overflow-hidden pointer-events-none"></div>
+
+  <!-- Main Desktop Space -->
+  <div class="relative z-10 flex-1 p-4 md:p-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-6 content-start items-start">
+    
+    <!-- Icon 1: Meu PC 2005 -->
+    <div onclick="openWindow('win-computer')" class="desktop-icon flex flex-col items-center group cursor-pointer p-2 rounded-xl hover:bg-white/30 transition-all duration-150">
+      <div class="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center text-sky-600 text-3xl group-hover:scale-110 transition-transform shadow-lg shine-sweep relative">
+        <i class="fa-solid fa-desktop"></i>
+        <div class="absolute -bottom-1 -right-1 bg-emerald-400 text-white text-[10px] px-1 rounded-md font-bold">XP</div>
+      </div>
+      <span class="mt-2 text-xs font-semibold text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)] text-center tracking-wide">Meu Computador</span>
+    </div>
+
+    <!-- Icon 2: Relíquias Celulares -->
+    <div onclick="openWindow('win-phones')" class="desktop-icon flex flex-col items-center group cursor-pointer p-2 rounded-xl hover:bg-white/30 transition-all duration-150">
+      <div class="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center text-emerald-600 text-3xl group-hover:scale-110 transition-transform shadow-lg shine-sweep">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+      </div>
+      <span class="mt-2 text-xs font-semibold text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)] text-center tracking-wide">Celulares 2005</span>
+    </div>
+
+    <!-- Icon 3: Videogames Interativos -->
+    <div onclick="openWindow('win-games')" class="desktop-icon flex flex-col items-center group cursor-pointer p-2 rounded-xl hover:bg-white/30 transition-all duration-150">
+      <div class="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center text-purple-600 text-3xl group-hover:scale-110 transition-transform shadow-lg shine-sweep">
+        <i class="fa-solid fa-gamepad"></i>
+      </div>
+      <span class="mt-2 text-xs font-semibold text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)] text-center tracking-wide">Arcade 2005</span>
+    </div>
+
+    <!-- Icon 4: Câmera Digicam 2005 -->
+    <div onclick="openWindow('win-camera')" class="desktop-icon flex flex-col items-center group cursor-pointer p-2 rounded-xl hover:bg-white/30 transition-all duration-150">
+      <div class="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center text-amber-500 text-3xl group-hover:scale-110 transition-transform shadow-lg shine-sweep relative">
+        <i class="fa-solid fa-camera-retro"></i>
+        <span class="absolute top-1 right-1 flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+        </span>
+      </div>
+      <span class="mt-2 text-xs font-semibold text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)] text-center tracking-wide">Câmera Cybershot</span>
+    </div>
+
+    <!-- Icon 5: Windows Media Player / CD & DVD -->
+    <div onclick="openWindow('win-player')" class="desktop-icon flex flex-col items-center group cursor-pointer p-2 rounded-xl hover:bg-white/30 transition-all duration-150">
+      <div class="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center text-blue-600 text-3xl group-hover:scale-110 transition-transform shadow-lg shine-sweep">
+        <i class="fa-solid fa-compact-disc animate-spin-slow"></i>
+      </div>
+      <span class="mt-2 text-xs font-semibold text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)] text-center tracking-wide">CD/DVD Player</span>
+    </div>
+
+    <!-- Icon 6: Internet Explorer 6 -->
+    <div onclick="openWindow('win-internet')" class="desktop-icon flex flex-col items-center group cursor-pointer p-2 rounded-xl hover:bg-white/30 transition-all duration-150">
+      <div class="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center text-cyan-600 text-3xl group-hover:scale-110 transition-transform shadow-lg shine-sweep">
+        <i class="fa-brands fa-internet-explorer"></i>
+      </div>
+      <span class="mt-2 text-xs font-semibold text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)] text-center tracking-wide">Internet Web 2005</span>
+    </div>
+
+    <!-- Icon 7: Lixeira / Recycle Bin -->
+    <div onclick="openWindow('win-trash')" class="desktop-icon flex flex-col items-center group cursor-pointer p-2 rounded-xl hover:bg-white/30 transition-all duration-150">
+      <div class="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center text-slate-600 text-3xl group-hover:scale-110 transition-transform shadow-lg shine-sweep">
+        <i class="fa-solid fa-trash-can"></i>
+      </div>
+      <span class="mt-2 text-xs font-semibold text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)] text-center tracking-wide">Lixeira</span>
+    </div>
+
+  </div>
+
+
+  <!-- WINDOW 1: MEU COMPUTADOR 2005 -->
+  <div id="win-computer" class="window-modal absolute top-12 left-4 md:left-24 w-[92vw] md:w-[680px] max-h-[80vh] glass-panel rounded-2xl overflow-hidden shadow-2xl z-20 hidden flex flex-col">
+    <div class="glass-window-header px-4 py-2.5 flex items-center justify-between cursor-move">
+      <div class="flex items-center gap-2 text-sky-900 font-bold text-sm">
+        <i class="fa-solid fa-desktop"></i>
+        <span>Meu Computador - Especificações 2005</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <button onclick="closeWindow('win-computer')" class="win-btn win-min"><i class="fa-solid fa-minus"></i></button>
+        <button onclick="closeWindow('win-computer')" class="win-btn win-max"><i class="fa-solid fa-square"></i></button>
+        <button onclick="closeWindow('win-computer')" class="win-btn win-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    
+    <div class="p-6 overflow-y-auto space-y-6 text-slate-800 bg-white/70 backdrop-blur-md flex-1">
+      <!-- Top Specs Banner -->
+      <div class="p-4 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+        <div>
+          <h3 class="text-xl font-bold tracking-tight">Super PC Gamer Turbo (2005 Edition)</h3>
+          <p class="text-xs text-sky-100 mt-1">Windows XP Professional Service Pack 2 • DirectX 9.0c</p>
+        </div>
+        <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-bold border border-white/40 backdrop-blur-sm">512 MB RAM DDR</span>
+      </div>
+
+      <!-- Specs Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-4 rounded-xl bg-sky-50/80 border border-sky-200">
+          <div class="flex items-center gap-3 text-sky-800 font-semibold mb-2">
+            <i class="fa-solid fa-microchip text-xl"></i>
+            <span>Processador</span>
+          </div>
+          <p class="text-sm font-bold text-slate-800">Intel® Pentium® 4 3.00 GHz</p>
+          <p class="text-xs text-slate-500">Hyper-Threading Tech, Soquete 478</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-emerald-50/80 border border-emerald-200">
+          <div class="flex items-center gap-3 text-emerald-800 font-semibold mb-2">
+            <i class="fa-solid fa-memory text-xl"></i>
+            <span>Placa de Vídeo</span>
+          </div>
+          <p class="text-sm font-bold text-slate-800">NVIDIA GeForce FX 5200 (128MB)</p>
+          <p class="text-xs text-slate-500">Conector AGP 8X • Rodando GTA San Andreas!</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-50/80 border border-amber-200">
+          <div class="flex items-center gap-3 text-amber-800 font-semibold mb-2">
+            <i class="fa-solid fa-hard-drive text-xl"></i>
+            <span>Disco Rígido (HD)</span>
+          </div>
+          <p class="text-sm font-bold text-slate-800">80 GB IDE 7200 RPM</p>
+          <p class="text-xs text-slate-500">Livre: 14.2 GB (Cheio de MP3 e Kazaa)</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-purple-50/80 border border-purple-200">
+          <div class="flex items-center gap-3 text-purple-800 font-semibold mb-2">
+            <i class="fa-solid fa-wifi text-xl"></i>
+            <span>Conexão Internet</span>
+          </div>
+          <p class="text-sm font-bold text-slate-800">Internet Banda Larga 128 kbps</p>
+          <p class="text-xs text-slate-500">Modem iG / Speedy • Discada aos Sábados</p>
+        </div>
+      </div>
+
+      <!-- CRT Monitor Visual Component -->
+      <div class="p-4 rounded-xl glass-panel bg-gradient-to-br from-slate-100 to-sky-100 border border-white">
+        <h4 class="font-bold text-sky-900 text-sm mb-2"><i class="fa-solid fa-tv mr-2"></i>Monitor CRT LG Flatron 17"</h4>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Resolução máxima de 1024x768 pixels a 75Hz. Proteção de tela 3D Pipe e Letreiro Digital ativos após 5 minutos de inatividade.
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- WINDOW 2: PHONES / CELULARES ANTIGOS -->
+  <div id="win-phones" class="window-modal absolute top-10 left-4 md:left-36 w-[92vw] md:w-[720px] max-h-[82vh] glass-panel rounded-2xl overflow-hidden shadow-2xl z-20 hidden flex flex-col">
+    <div class="glass-window-header px-4 py-2.5 flex items-center justify-between cursor-move">
+      <div class="flex items-center gap-2 text-emerald-900 font-bold text-sm">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        <span>Museu de Celulares Anos 2000 & Ringtones Polifônicos</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <button onclick="closeWindow('win-phones')" class="win-btn win-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+
+    <div class="p-6 overflow-y-auto space-y-6 text-slate-800 bg-white/75 backdrop-blur-md flex-1">
+      <p class="text-xs text-slate-600 bg-emerald-50 p-3 rounded-lg border border-emerald-200">
+        <i class="fa-solid fa-info-circle text-emerald-600 mr-1"></i> Clique em <strong>Tocar Ringtone</strong> para escutar o som sintético real no seu navegador!
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Phone 1: Motorola V3 -->
+        <div class="p-4 rounded-2xl glass-panel bg-gradient-to-b from-slate-50 to-emerald-50/50 border border-emerald-200 flex flex-col items-center text-center shadow-md">
+          <div class="w-20 h-28 bg-gradient-to-b from-slate-800 to-slate-900 rounded-2xl border-2 border-slate-400 p-2 flex flex-col items-center justify-between shadow-lg relative mb-3">
+            <div class="w-12 h-10 bg-sky-200 rounded-md border border-slate-600 flex items-center justify-center text-[10px] font-bold text-slate-800">
+              V3 RAZR
+            </div>
+            <div class="grid grid-cols-3 gap-1 w-full px-1">
+              <div class="h-2 bg-slate-600 rounded-xs"></div>
+              <div class="h-2 bg-slate-600 rounded-xs"></div>
+              <div class="h-2 bg-slate-600 rounded-xs"></div>
+            </div>
+            <span class="text-[9px] text-slate-400 font-mono">MOTOROLA</span>
+          </div>
+          <h4 class="font-bold text-slate-900 text-sm">Motorola Razr V3</h4>
+          <p class="text-xs text-slate-500 mt-1">O celular flip mais desejado de 2004/2005. Espessura ultra fina, corpo de alumínio.</p>
+          <button onclick="playPolyphonicRingtone('v3')" class="mt-4 w-full aero-btn-green py-2 px-3 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-2">
+            <i class="fa-solid fa-music"></i> Tocar Hello Moto!
+          </button>
+        </div>
+
+        <!-- Phone 2: Nokia 3310 / 1100 -->
+        <div class="p-4 rounded-2xl glass-panel bg-gradient-to-b from-slate-50 to-blue-50/50 border border-blue-200 flex flex-col items-center text-center shadow-md">
+          <div class="w-20 h-28 bg-blue-900 rounded-2xl border-2 border-blue-400 p-2 flex flex-col items-center justify-between shadow-lg relative mb-3">
+            <div class="w-14 h-10 bg-emerald-300 rounded-md border border-slate-800 flex flex-col items-center justify-center text-[9px] font-mono font-bold text-slate-900 p-1">
+              <span>NOKIA</span>
+              <span class="text-[8px] opacity-75">Indestrutível</span>
+            </div>
+            <div class="grid grid-cols-3 gap-1 w-full px-1">
+              <div class="h-2 bg-slate-200 rounded-xs"></div>
+              <div class="h-2 bg-slate-200 rounded-xs"></div>
+              <div class="h-2 bg-slate-200 rounded-xs"></div>
+            </div>
+            <span class="text-[9px] text-blue-200 font-mono">1100 / 3310</span>
+          </div>
+          <h4 class="font-bold text-slate-900 text-sm">Nokia "Tijolão"</h4>
+          <p class="text-xs text-slate-500 mt-1">Bateria que dura 2 semanas, lanterna potente e o clássico jogo da cobrinha (Snake).</p>
+          <button onclick="playPolyphonicRingtone('nokia')" class="mt-4 w-full aero-btn py-2 px-3 rounded-xl text-xs font-bold text-sky-900 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-music"></i> Nokia Tune
+          </button>
+        </div>
+
+        <!-- Phone 3: Sony Ericsson Walkman -->
+        <div class="p-4 rounded-2xl glass-panel bg-gradient-to-b from-slate-50 to-orange-50/50 border border-orange-200 flex flex-col items-center text-center shadow-md">
+          <div class="w-20 h-28 bg-orange-600 rounded-2xl border-2 border-orange-300 p-2 flex flex-col items-center justify-between shadow-lg relative mb-3">
+            <div class="w-14 h-10 bg-slate-900 rounded-md border border-orange-300 flex items-center justify-center text-[9px] font-bold text-orange-400">
+              W800i MP3
+            </div>
+            <div class="grid grid-cols-3 gap-1 w-full px-1">
+              <div class="h-2 bg-white rounded-xs"></div>
+              <div class="h-2 bg-white rounded-xs"></div>
+              <div class="h-2 bg-white rounded-xs"></div>
+            </div>
+            <span class="text-[8px] text-white font-mono">WALKMAN</span>
+          </div>
+          <h4 class="font-bold text-slate-900 text-sm">Sony Ericsson Walkman</h4>
+          <p class="text-xs text-slate-500 mt-1">O celular focado em música. Cartão Memory Stick Duo de 512MB e fones com grave potente.</p>
+          <button onclick="playPolyphonicRingtone('crazyfrog')" class="mt-4 w-full aero-btn py-2 px-3 rounded-xl text-xs font-bold text-sky-900 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-frog"></i> Crazy Frog Sound
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- WINDOW 3: GAMES INTERATIVOS (SNAKE RETRO) -->
+  <div id="win-games" class="window-modal absolute top-12 left-4 md:left-48 w-[92vw] md:w-[620px] max-h-[85vh] glass-panel rounded-2xl overflow-hidden shadow-2xl z-20 hidden flex flex-col">
+    <div class="glass-window-header px-4 py-2.5 flex items-center justify-between cursor-move">
+      <div class="flex items-center gap-2 text-purple-900 font-bold text-sm">
+        <i class="fa-solid fa-gamepad"></i>
+        <span>Nostalgia Games - Jogo da Cobrinha 2005</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <button onclick="closeWindow('win-games')" class="win-btn win-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+
+    <div class="p-6 overflow-y-auto space-y-4 text-slate-800 bg-white/80 backdrop-blur-md flex-1 flex flex-col items-center">
+      
+      <div class="w-full flex items-center justify-between bg-slate-900 text-emerald-400 px-4 py-2 rounded-xl font-mono text-sm">
+        <span>PONTOS: <span id="snake-score">0</span></span>
+        <span>RECORDE: <span id="snake-high">120</span></span>
+        <button onclick="startSnakeGame()" class="px-3 py-1 bg-emerald-500 text-slate-950 font-bold rounded-lg text-xs hover:bg-emerald-400">Novo Jogo</button>
+      </div>
+
+      <!-- Canvas Arcade Screen -->
+      <div class="relative border-4 border-slate-800 rounded-xl overflow-hidden shadow-2xl bg-emerald-950 p-1">
+        <canvas id="snakeCanvas" width="320" height="320" class="bg-emerald-300 block rounded-lg"></canvas>
+      </div>
+
+      <!-- Virtual Gamepad for Mobile Touch -->
+      <div class="grid grid-cols-3 gap-2 w-48 mt-2 md:hidden">
+        <div></div>
+        <button onclick="changeSnakeDirection('UP')" class="aero-btn p-3 rounded-xl flex items-center justify-center text-slate-800 font-bold"><i class="fa-solid fa-arrow-up"></i></button>
+        <div></div>
+        <button onclick="changeSnakeDirection('LEFT')" class="aero-btn p-3 rounded-xl flex items-center justify-center text-slate-800 font-bold"><i class="fa-solid fa-arrow-left"></i></button>
+        <button onclick="changeSnakeDirection('DOWN')" class="aero-btn p-3 rounded-xl flex items-center justify-center text-slate-800 font-bold"><i class="fa-solid fa-arrow-down"></i></button>
+        <button onclick="changeSnakeDirection('RIGHT')" class="aero-btn p-3 rounded-xl flex items-center justify-center text-slate-800 font-bold"><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+
+      <p class="text-xs text-slate-500 text-center">Use as **setas do teclado** ou os botões para controlar a cobrinha!</p>
+    </div>
+  </div>
+
+
+  <!-- WINDOW 4: CÂMERA CYBERSHOT 2005 (INTERACTIVE WEBCAM FILTER) -->
+  <div id="win-camera" class="window-modal absolute top-8 left-4 md:left-28 w-[92vw] md:w-[700px] max-h-[85vh] glass-panel rounded-2xl overflow-hidden shadow-2xl z-30 hidden flex flex-col">
+    <div class="glass-window-header px-4 py-2.5 flex items-center justify-between cursor-move">
+      <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+        <i class="fa-solid fa-camera-retro"></i>
+        <span>Sony Cyber-shot DSC-P200 (Modo Foto 2005)</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <button onclick="closeWindow('win-camera')" class="win-btn win-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+
+    <div class="p-5 overflow-y-auto space-y-4 text-slate-800 bg-slate-900 text-white flex-1 flex flex-col items-center">
+      
+      <!-- Camera Display Screen Viewport -->
+      <div class="relative w-full max-w-lg aspect-video bg-black rounded-xl overflow-hidden border-4 border-slate-700 shadow-inner crt-screen flex items-center justify-center">
+        <!-- Live Video Element (Hidden or source) -->
+        <video id="webcam-video" autoplay playsinline class="hidden"></video>
+        
+        <!-- Live Retro Filter Canvas -->
+        <canvas id="camera-canvas" width="480" height="360" class="w-full h-full object-cover"></canvas>
+        
+        <!-- Scanline & Viewfinder Overlay -->
+        <div class="scanline-overlay absolute inset-0"></div>
+
+        <!-- Viewfinder HUD 2005 -->
+        <div class="absolute inset-0 p-4 pointer-events-none flex flex-col justify-between">
+          <div class="flex justify-between items-center text-xs font-mono text-amber-400 font-bold">
+            <span class="flex items-center gap-1"><i class="fa-solid fa-battery-three-quarters text-emerald-400"></i> ISO 400</span>
+            <span class="bg-red-600 text-white px-2 py-0.5 rounded text-[10px] animate-pulse">● REC 3.2 MP</span>
+          </div>
+          <div class="flex justify-between items-end">
+            <div id="cam-clock" class="cam-timestamp text-lg font-bold">05/20/2005 14:32</div>
+            <span class="text-amber-400 text-xs font-mono">FINE [SD]</span>
+          </div>
+        </div>
+
+        <!-- Camera Status Message -->
+        <div id="camera-status" class="absolute inset-0 bg-slate-950/90 flex flex-col items-center justify-center p-6 text-center z-10">
+          <i class="fa-solid fa-video-slash text-4xl text-amber-400 mb-3"></i>
+          <h4 class="text-base font-bold text-white mb-1">Ativar Câmera Digital 2005</h4>
+          <p class="text-xs text-slate-400 mb-4 max-w-xs">Permita o acesso à sua câmera para aplicar o efeito vintage dos anos 2000 em tempo real com granulação, baixa resolução e estampador de data!</p>
+          <button onclick="startCameraStream()" class="aero-btn-green px-5 py-2.5 rounded-xl text-sm font-bold text-white shadow-lg flex items-center gap-2">
+            <i class="fa-solid fa-camera"></i> Ligar Câmera
+          </button>
+        </div>
+      </div>
+
+      <!-- Controls & Snapshot Button -->
+      <div class="w-full max-w-lg flex flex-wrap items-center justify-between gap-3 bg-slate-800 p-3 rounded-xl border border-slate-700">
+        <div class="flex items-center gap-2">
+          <label class="text-xs text-slate-300 font-semibold">Efeito Retro:</label>
+          <select id="cam-filter-mode" onchange="updateFilterSettings()" class="bg-slate-900 border border-slate-600 text-amber-400 text-xs rounded-lg p-1.5 focus:outline-none">
+            <option value="digicam2005">Digicam 2005 (Quente + Grão)</option>
+            <option value="matrix">Matrix Cyber Green</option>
+            <option value="webcam2000">Webcam Discada Low-Res</option>
+            <option value="sepia">Foto Antiga Revelada</option>
+          </select>
+        </div>
+
+        <button onclick="takeSnapshot()" id="snap-btn" disabled class="aero-btn py-2 px-5 rounded-xl text-xs font-bold text-sky-950 flex items-center gap-2 disabled:opacity-50">
+          <i class="fa-solid fa-circle-dot text-red-600"></i> Tirar Foto!
+        </button>
+      </div>
+
+      <!-- Snapshot Gallery Output -->
+      <div id="snapshot-gallery" class="w-full max-w-lg hidden space-y-2">
+        <h5 class="text-xs font-bold text-amber-400 uppercase tracking-wider">Sua Foto Estilo 2005:</h5>
+        <div class="p-2 bg-slate-800 rounded-xl border border-slate-700 flex flex-col md:flex-row items-center gap-3">
+          <img id="snapshot-img" class="w-36 h-28 object-cover rounded-lg border border-amber-400/50 shadow">
+          <div class="flex-1 text-center md:text-left">
+            <p class="text-xs text-slate-300 font-mono">DSC00052.JPG</p>
+            <p class="text-[11px] text-slate-400">Resolução: 640x480 • Câmera Vintage</p>
+            <a id="download-photo-link" download="foto_2005_cyber.jpg" class="mt-2 inline-block px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-lg shadow transition">
+              <i class="fa-solid fa-download mr-1"></i> Baixar Foto Foto 2005
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- WINDOW 5: CD / DVD MEDIA PLAYER (WMP 10 / WINAMP) -->
+  <div id="win-player" class="window-modal absolute top-14 left-4 md:left-40 w-[92vw] md:w-[640px] max-h-[82vh] glass-panel rounded-2xl overflow-hidden shadow-2xl z-20 hidden flex flex-col">
+    <div class="glass-window-header px-4 py-2.5 flex items-center justify-between cursor-move">
+      <div class="flex items-center gap-2 text-blue-900 font-bold text-sm">
+        <i class="fa-solid fa-compact-disc"></i>
+        <span>Cyber Player - Windows Media Player 10</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <button onclick="closeWindow('win-player')" class="win-btn win-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+
+    <div class="p-6 overflow-y-auto space-y-5 text-slate-800 bg-slate-900 text-white flex-1">
+      
+      <!-- Visualizer & Album Artwork -->
+      <div class="p-4 rounded-2xl bg-gradient-to-br from-blue-950 via-sky-950 to-slate-900 border border-sky-500/30 flex flex-col md:flex-row items-center gap-6 shadow-inner">
+        <!-- CD Spinning Graphic -->
+        <div class="relative w-32 h-32 flex-shrink-0 flex items-center justify-center">
+          <div id="cd-disc" class="w-32 h-32 rounded-full bg-gradient-to-tr from-cyan-400 via-sky-200 to-indigo-500 p-1 shadow-2xl flex items-center justify-center animate-spin-slow">
+            <div class="w-10 h-10 rounded-full bg-slate-900 border-4 border-slate-700 flex items-center justify-center">
+              <div class="w-4 h-4 rounded-full bg-sky-400"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-1 text-center md:text-left space-y-2">
+          <span class="px-2.5 py-0.5 bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 rounded-full text-[10px] font-bold tracking-wider uppercase">Álbum Hits 2005</span>
+          <h3 id="song-title" class="text-lg font-bold text-white tracking-wide">Y2K Synth Dreams (Frutiger Aero Beat)</h3>
+          <p id="song-artist" class="text-xs text-sky-300">Artista: Digital Water Spheres</p>
+
+          <!-- Audio Equalizer Bars -->
+          <div class="flex items-end justify-center md:justify-start gap-1 h-8 pt-2">
+            <div class="w-1.5 bg-cyan-400 rounded-t animate-bounce h-6"></div>
+            <div class="w-1.5 bg-sky-400 rounded-t animate-bounce h-4" style="animation-delay: 0.1s"></div>
+            <div class="w-1.5 bg-blue-400 rounded-t animate-bounce h-7" style="animation-delay: 0.2s"></div>
+            <div class="w-1.5 bg-emerald-400 rounded-t animate-bounce h-3" style="animation-delay: 0.3s"></div>
+            <div class="w-1.5 bg-cyan-300 rounded-t animate-bounce h-8" style="animation-delay: 0.15s"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Player Playback Controls -->
+      <div class="flex flex-col items-center gap-3 bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+        <div class="w-full flex items-center justify-between text-xs text-slate-400 font-mono">
+          <span id="player-time">00:15</span>
+          <div class="flex-1 mx-3 h-2 bg-slate-700 rounded-full overflow-hidden">
+            <div id="player-progress" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 w-1/3"></div>
+          </div>
+          <span>03:20</span>
+        </div>
+
+        <div class="flex items-center gap-4 mt-1">
+          <button onclick="prevSong()" class="text-slate-300 hover:text-white text-lg"><i class="fa-solid fa-backward-step"></i></button>
+          <button onclick="togglePlaySynth()" id="play-btn" class="w-12 h-12 rounded-full aero-btn flex items-center justify-center text-sky-950 text-xl shadow-lg">
+            <i class="fa-solid fa-play" id="play-icon"></i>
+          </button>
+          <button onclick="nextSong()" class="text-slate-300 hover:text-white text-lg"><i class="fa-solid fa-forward-step"></i></button>
+        </div>
+      </div>
+
+      <!-- Playlist Selection -->
+      <div class="space-y-1">
+        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Playlist Nostálgica:</h4>
+        <div onclick="selectSong(0)" class="p-2.5 rounded-lg bg-sky-900/40 hover:bg-sky-800/50 cursor-pointer flex justify-between items-center text-xs text-sky-100 border border-sky-500/20">
+          <span>1. Y2K Synth Dreams (Frutiger Ambient)</span>
+          <span class="font-mono text-slate-400">03:20</span>
+        </div>
+        <div onclick="selectSong(1)" class="p-2.5 rounded-lg bg-slate-800/40 hover:bg-sky-800/50 cursor-pointer flex justify-between items-center text-xs text-slate-300">
+          <span>2. Eurodance 2005 High Energy</span>
+          <span class="font-mono text-slate-400">02:45</span>
+        </div>
+        <div onclick="selectSong(2)" class="p-2.5 rounded-lg bg-slate-800/40 hover:bg-sky-800/50 cursor-pointer flex justify-between items-center text-xs text-slate-300">
+          <span>3. Dial-Up Modem Symphony Remix</span>
+          <span class="font-mono text-slate-400">01:50</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- WINDOW 6: INTERNET EXPLORER 6.0 -->
+  <div id="win-internet" class="window-modal absolute top-6 left-4 md:left-20 w-[92vw] md:w-[780px] max-h-[85vh] glass-panel rounded-2xl overflow-hidden shadow-2xl z-20 hidden flex flex-col">
+    <div class="glass-window-header px-4 py-2.5 flex items-center justify-between cursor-move">
+      <div class="flex items-center gap-2 text-cyan-900 font-bold text-sm">
+        <i class="fa-brands fa-internet-explorer text-blue-600"></i>
+        <span>Internet Explorer 6.0 - MSN Portal 2005</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <button onclick="closeWindow('win-internet')" class="win-btn win-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+
+    <!-- Browser Navbar -->
+    <div class="bg-slate-200 border-b border-slate-300 p-2 flex items-center gap-2 text-xs">
+      <button class="px-2 py-1 bg-white border border-slate-300 rounded shadow-sm text-slate-600"><i class="fa-solid fa-arrow-left"></i></button>
+      <button class="px-2 py-1 bg-white border border-slate-300 rounded shadow-sm text-slate-600"><i class="fa-solid fa-arrow-right"></i></button>
+      <button class="px-2 py-1 bg-white border border-slate-300 rounded shadow-sm text-slate-600"><i class="fa-solid fa-rotate-right"></i></button>
+      <div class="flex-1 bg-white border border-slate-400 rounded px-3 py-1 text-slate-700 font-mono text-[11px] flex items-center gap-2 shadow-inner">
+        <i class="fa-solid fa-lock text-emerald-600 text-[10px]"></i>
+        <span>http://www.msn.com.br/home2005</span>
+      </div>
+      <span class="px-2 py-1 bg-sky-600 text-white font-bold rounded">Ir</span>
+    </div>
+
+    <!-- Web Content Frame -->
+    <div class="p-6 overflow-y-auto space-y-6 bg-white text-slate-800 flex-1">
+      
+      <!-- MSN Header Banner -->
+      <div class="flex items-center justify-between border-b-2 border-red-500 pb-3">
+        <div class="flex items-center gap-3">
+          <span class="text-3xl font-black text-blue-600 tracking-tighter">msn<span class="text-orange-500">.</span></span>
+          <span class="text-xs text-slate-500 font-semibold">O seu portal de notícias da Web Discada</span>
+        </div>
+        <div class="text-right text-xs text-slate-500">
+          <span>Quinta-feira, 2005</span>
+        </div>
+      </div>
+
+      <!-- Highlights Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <!-- MSN Messenger Highlight -->
+        <div class="p-4 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200">
+          <span class="px-2 py-0.5 bg-emerald-600 text-white rounded text-[10px] font-bold">MSN Messenger 7.5</span>
+          <h4 class="font-bold text-slate-900 mt-2 text-sm">A nova moda: Enviar "Chamar Atenção" (Nudge)!</h4>
+          <p class="text-xs text-slate-600 mt-1">Personalize seus sub-nicknames com emoticons piscantes e escute o som de winks!</p>
+        </div>
+
+        <!-- Orkut Mania -->
+        <div class="p-4 rounded-xl bg-gradient-to-br from-pink-50 to-purple-50 border border-pink-200">
+          <span class="px-2 py-0.5 bg-pink-600 text-white rounded text-[10px] font-bold">Redes Sociais</span>
+          <h4 class="font-bold text-slate-900 mt-2 text-sm">Orkut atinge 1 milhão de usuários no Brasil!</h4>
+          <p class="text-xs text-slate-600 mt-1">Comunidades como "Eu odeio acordar cedo" e "Deus me deu 2 mãos pra não ter q usar o mousepad" batem recordes.</p>
+        </div>
+
+        <!-- Downloads / Flash Games -->
+        <div class="p-4 rounded-xl bg-gradient-to-br from-sky-50 to-blue-50 border border-sky-200">
+          <span class="px-2 py-0.5 bg-sky-600 text-white rounded text-[10px] font-bold">Downloads</span>
+          <h4 class="font-bold text-slate-900 mt-2 text-sm">Baixe Winamp 5 & eMule v0.46c</h4>
+          <p class="text-xs text-slate-600 mt-1">Acelere seus downloads de MP3 e skins holográficas em menos de 4 horas por música.</p>
+        </div>
+
+      </div>
+
+      <!-- Retro Flash Banner Box -->
+      <div class="p-4 rounded-xl bg-amber-100 border-2 border-dashed border-amber-400 text-center">
+        <p class="text-xs font-bold text-amber-900 uppercase tracking-wide">★ Anúncio Patrocinado de 2005 ★</p>
+        <p class="text-sm font-bold text-slate-800 mt-1">Aumente sua RAM baixando mais memória na Internet! (Brincadeira!)</p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- WINDOW 7: LIXEIRA -->
+  <div id="win-trash" class="window-modal absolute top-20 left-4 md:left-64 w-[90vw] md:w-[480px] glass-panel rounded-2xl overflow-hidden shadow-2xl z-20 hidden flex flex-col">
+    <div class="glass-window-header px-4 py-2.5 flex items-center justify-between cursor-move">
+      <div class="flex items-center gap-2 text-slate-800 font-bold text-sm">
+        <i class="fa-solid fa-trash-can"></i>
+        <span>Lixeira do Sistema</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <button onclick="closeWindow('win-trash')" class="win-btn win-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <div class="p-6 bg-white/80 backdrop-blur-md text-slate-800 space-y-3">
+      <div class="p-3 bg-slate-100 rounded-lg text-xs font-mono border border-slate-300 flex items-center justify-between">
+        <span><i class="fa-solid fa-file-audio text-blue-500 mr-2"></i> linkin_park_numb_mp3.exe</span>
+        <span class="text-slate-400">3.4 MB</span>
+      </div>
+      <div class="p-3 bg-slate-100 rounded-lg text-xs font-mono border border-slate-300 flex items-center justify-between">
+        <span><i class="fa-solid fa-file-image text-emerald-500 mr-2"></i> foto_fotolog_2005.bmp</span>
+        <span class="text-slate-400">1.2 MB</span>
+      </div>
+      <button onclick="alert('Lixeira esvaziada com sucesso!')" class="w-full aero-btn py-2 text-xs font-bold text-slate-800 rounded-xl">Esvaziar Lixeira</button>
+    </div>
+  </div>
+
+
+  <!-- START MENU MODAL POPUP -->
+  <div id="start-menu" class="absolute bottom-14 left-2 w-72 glass-panel rounded-t-2xl rounded-br-2xl shadow-2xl z-50 hidden border border-white overflow-hidden flex flex-col">
+    <!-- Header user info -->
+    <div class="p-3 bg-gradient-to-r from-sky-600 to-blue-700 text-white flex items-center gap-3 border-b border-white/40">
+      <div class="w-10 h-10 rounded-full bg-white/20 border-2 border-white flex items-center justify-center text-xl font-bold shadow">
+        <i class="fa-solid fa-user-astronaut"></i>
+      </div>
+      <div>
+        <h4 class="font-bold text-sm leading-none">Usuário 2005</h4>
+        <span class="text-[10px] text-sky-200">Frutiger Aero XP</span>
+      </div>
+    </div>
+
+    <!-- Menu Links -->
+    <div class="p-2 space-y-1 bg-white/80 backdrop-blur-md text-xs text-slate-800">
+      <div onclick="openWindow('win-computer'); toggleStartMenu();" class="p-2 rounded-lg hover:bg-sky-100 cursor-pointer flex items-center gap-3">
+        <i class="fa-solid fa-desktop text-sky-600 text-base"></i>
+        <span>Meu Computador</span>
+      </div>
+      <div onclick="openWindow('win-phones'); toggleStartMenu();" class="p-2 rounded-lg hover:bg-emerald-100 cursor-pointer flex items-center gap-3">
+        <i class="fa-solid fa-mobile-screen-button text-emerald-600 text-base"></i>
+        <span>Celulares Antigos</span>
+      </div>
+      <div onclick="openWindow('win-camera'); toggleStartMenu();" class="p-2 rounded-lg hover:bg-amber-100 cursor-pointer flex items-center gap-3">
+        <i class="fa-solid fa-camera-retro text-amber-600 text-base"></i>
+        <span>Câmera Cybershot</span>
+      </div>
+      <div onclick="openWindow('win-games'); toggleStartMenu();" class="p-2 rounded-lg hover:bg-purple-100 cursor-pointer flex items-center gap-3">
+        <i class="fa-solid fa-gamepad text-purple-600 text-base"></i>
+        <span>Videogames Interativos</span>
+      </div>
+      <div onclick="openWindow('win-player'); toggleStartMenu();" class="p-2 rounded-lg hover:bg-blue-100 cursor-pointer flex items-center gap-3">
+        <i class="fa-solid fa-compact-disc text-blue-600 text-base"></i>
+        <span>CD & DVD Media Player</span>
+      </div>
+      <hr class="border-slate-200 my-1">
+      <div onclick="spawnExtraBubble()" class="p-2 rounded-lg hover:bg-cyan-100 cursor-pointer flex items-center gap-3 text-cyan-800 font-bold">
+        <i class="fa-solid fa-soap text-cyan-500 text-base"></i>
+        <span>Soltar Mais Bolhas de Água!</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- BOTTOM TASKBAR -->
+  <div class="taskbar h-12 w-full px-2 flex items-center justify-between z-40 relative">
+    
+    <!-- Start Button & Active Windows -->
+    <div class="flex items-center gap-2">
+      <button onclick="toggleStartMenu()" class="start-btn h-9 px-4 rounded-xl text-white font-black text-sm flex items-center gap-2 tracking-wide cursor-pointer transition">
+        <i class="fa-brands fa-windows text-lg"></i>
+        <span>iniciar</span>
+      </button>
+
+      <div class="h-6 w-[1px] bg-white/20 mx-1"></div>
+
+      <!-- Quick Taskbar Buttons -->
+      <div class="flex items-center gap-1 overflow-x-auto">
+        <button onclick="openWindow('win-computer')" class="px-3 py-1 bg-white/20 hover:bg-white/30 rounded-lg text-white text-xs font-semibold flex items-center gap-1.5 border border-white/20">
+          <i class="fa-solid fa-desktop text-sky-300"></i>
+          <span class="hidden md:inline">Meu PC</span>
+        </button>
+        <button onclick="openWindow('win-camera')" class="px-3 py-1 bg-white/20 hover:bg-white/30 rounded-lg text-white text-xs font-semibold flex items-center gap-1.5 border border-white/20">
+          <i class="fa-solid fa-camera-retro text-amber-300"></i>
+          <span class="hidden md:inline">Câmera 2005</span>
+        </button>
+        <button onclick="openWindow('win-games')" class="px-3 py-1 bg-white/20 hover:bg-white/30 rounded-lg text-white text-xs font-semibold flex items-center gap-1.5 border border-white/20">
+          <i class="fa-solid fa-gamepad text-purple-300"></i>
+          <span class="hidden md:inline">Arcade</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- System Tray Clock & Icons -->
+    <div class="flex items-center gap-3 bg-black/30 px-3 py-1 rounded-xl border border-white/10 text-white text-xs">
+      <i class="fa-solid fa-volume-high text-sky-300 cursor-pointer" onclick="playWebSound('click')" title="Som de Sistema"></i>
+      <i class="fa-solid fa-network-wired text-emerald-400" title="Conectado a 100 Mbps"></i>
+      <span id="system-clock" class="font-mono font-bold text-sky-200">14:32</span>
+    </div>
+
+  </div>
+
+
+  <script>
+    /* ========================================================================
+       1. FRUTIGER AERO BUBBLE SYSTEM
+       ======================================================================== */
+    const bubbleContainer = document.getElementById('bubble-container');
+
+    function createBubble() {
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      
+      const size = Math.random() * 50 + 25; // 25px to 75px
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      
+      bubble.style.left = `${Math.random() * 95}%`;
+      bubble.style.animationDuration = `${Math.random() * 8 + 7}s`; // 7s to 15s
+      
+      // Pop bubble on click
+      bubble.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playWebSound('pop');
+        bubble.style.transform = 'scale(1.5)';
+        bubble.style.opacity = '0';
+        setTimeout(() => bubble.remove(), 200);
+      });
+
+      bubbleContainer.appendChild(bubble);
+
+      // Remove bubble when animation finishes
+      setTimeout(() => {
+        if (bubble.parentNode) bubble.remove();
+      }, 16000);
+    }
+
+    // Generate initial floating bubbles periodically
+    setInterval(createBubble, 1400);
+    for (let i = 0; i < 8; i++) createBubble();
+
+    function spawnExtraBubble() {
+      for (let i = 0; i < 10; i++) setTimeout(createBubble, i * 150);
+    }
+
+
+    /* ========================================================================
+       2. WINDOW MANAGEMENT SYSTEM
+       ======================================================================== */
+    function openWindow(id) {
+      playWebSound('click');
+      const win = document.getElementById(id);
+      if (win) {
+        win.classList.remove('hidden');
+        // Bring to front
+        document.querySelectorAll('.window-modal').forEach(w => w.style.zIndex = '20');
+        win.style.zIndex = '35';
+      }
+    }
+
+    function closeWindow(id) {
+      playWebSound('close');
+      const win = document.getElementById(id);
+      if (win) win.classList.add('hidden');
+    }
+
+    function toggleStartMenu() {
+      playWebSound('click');
+      const menu = document.getElementById('start-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // Close Start menu on click outside
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('start-menu');
+      const startBtn = document.querySelector('.start-btn');
+      if (!menu.contains(e.target) && !startBtn.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    // Make windows draggable via header
+    document.querySelectorAll('.glass-window-header').forEach(header => {
+      let isDragging = false, startX, startY, initialLeft, initialTop;
+      const windowModal = header.closest('.window-modal');
+
+      header.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        initialLeft = windowModal.offsetLeft;
+        initialTop = windowModal.offsetTop;
+        document.querySelectorAll('.window-modal').forEach(w => w.style.zIndex = '20');
+        windowModal.style.zIndex = '35';
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        windowModal.style.left = `${initialLeft + dx}px`;
+        windowModal.style.top = `${initialTop + dy}px`;
+      });
+
+      document.addEventListener('mouseup', () => { isDragging = false; });
+    });
+
+
+    /* ========================================================================
+       3. WEB AUDIO SYNTHESIZER (RINGTONES & SYSTEM SOUNDS)
+       ======================================================================== */
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playWebSound(type) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      if (type === 'click') {
+        osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.05);
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.05);
+      } else if (type === 'pop') {
+        osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.08);
+      } else if (type === 'close') {
+        osc.frequency.setValueAtTime(500, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.08);
+      }
+    }
+
+    // Polyphonic Ringtones (2000s Nokia / Hello Moto synth)
+    function playPolyphonicRingtone(phoneType) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      let notes = [];
+      if (phoneType === 'nokia') {
+        // Iconic Nokia Tune notes (E6, D6, F#5, G#5, C#6, B5, D5, E5, B5, A5, C#5, E5, A5)
+        notes = [
+          { freq: 1318, duration: 0.15 }, { freq: 1174, duration: 0.15 }, { freq: 739, duration: 0.3 }, { freq: 830, duration: 0.3 },
+          { freq: 1108, duration: 0.15 }, { freq: 987, duration: 0.15 }, { freq: 587, duration: 0.3 }, { freq: 659, duration: 0.3 },
+          { freq: 987, duration: 0.15 }, { freq: 880, duration: 0.15 }, { freq: 554, duration: 0.3 }, { freq: 659, duration: 0.3 }, { freq: 880, duration: 0.6 }
+        ];
+      } else if (phoneType === 'v3') {
+        // Motorola Hello Moto synth vibe
+        notes = [
+          { freq: 523, duration: 0.2 }, { freq: 659, duration: 0.2 }, { freq: 783, duration: 0.2 }, { freq: 1046, duration: 0.4 },
+          { freq: 783, duration: 0.2 }, { freq: 1046, duration: 0.6 }
+        ];
+      } else {
+        // Crazy Frog Axel F melody excerpt
+        notes = [
+          { freq: 587, duration: 0.2 }, { freq: 698, duration: 0.2 }, { freq: 587, duration: 0.2 }, { freq: 587, duration: 0.1 },
+          { freq: 783, duration: 0.2 }, { freq: 587, duration: 0.2 }, { freq: 523, duration: 0.2 }, { freq: 587, duration: 0.4 }
+        ];
+      }
+
+      let now = audioCtx.currentTime;
+      notes.forEach(note => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'square'; // Classic 8-bit / polyphonic ringtone square wave
+        osc.frequency.setValueAtTime(note.freq, now);
+        
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + note.duration - 0.02);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + note.duration);
+
+        now += note.duration;
+      });
+    }
+
+
+    /* ========================================================================
+       4. MEDIA PLAYER SYNTH ENGINE (2000s MUSIC PLAYER)
+       ======================================================================== */
+    let isPlaying = false;
+    let synthLoopTimer = null;
+
+    function togglePlaySynth() {
+      const icon = document.getElementById('play-icon');
+      const cd = document.getElementById('cd-disc');
+
+      if (!isPlaying) {
+        isPlaying = true;
+        icon.className = 'fa-solid fa-pause';
+        cd.classList.add('animate-spin');
+        startAmbientY2KSynth();
+      } else {
+        isPlaying = false;
+        icon.className = 'fa-solid fa-play';
+        cd.classList.remove('animate-spin');
+        if (synthLoopTimer) clearInterval(synthLoopTimer);
+      }
+    }
+
+    function startAmbientY2KSynth() {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      
+      const chords = [
+        [261.63, 329.63, 392.00], // C major
+        [220.00, 261.63, 329.63], // A minor
+        [174.61, 220.00, 261.63], // F major
+        [196.00, 246.94, 293.66]  // G major
+      ];
+      let step = 0;
+
+      synthLoopTimer = setInterval(() => {
+        if (!isPlaying) return;
+        
+        const currentChord = chords[step % chords.length];
+        currentChord.forEach(freq => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq * 2, audioCtx.currentTime);
+
+          gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.8);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          osc.start();
+          osc.stop(audioCtx.currentTime + 1.8);
+        });
+
+        step++;
+      }, 2000);
+    }
+
+    function selectSong(index) {
+      const titles = ["Y2K Synth Dreams (Frutiger Ambient)", "Eurodance 2005 High Energy", "Dial-Up Modem Symphony Remix"];
+      document.getElementById('song-title').textContent = titles[index];
+      if (!isPlaying) togglePlaySynth();
+    }
+    function prevSong() { selectSong(0); }
+    function nextSong() { selectSong(1); }
+
+
+    /* ========================================================================
+       5. DIGITAL CAMERA 2005 (WEBCAM + VINTAGE FILTER CANVAS ENGINE)
+       ======================================================================== */
+    let videoStream = null;
+    let cameraAnimationId = null;
+
+    async function startCameraStream() {
+      const statusOverlay = document.getElementById('camera-status');
+      const video = document.getElementById('webcam-video');
+      const snapBtn = document.getElementById('snap-btn');
+
+      try {
+        videoStream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 } });
+        video.srcObject = videoStream;
+        await video.play();
+
+        statusOverlay.classList.add('hidden');
+        snapBtn.disabled = false;
+
+        renderCameraCanvas();
+      } catch (err) {
+        alert("Não foi possível acessar a câmera. Verifique as permissões no navegador!");
+        console.error("Camera access error:", err);
+      }
+    }
+
+    function renderCameraCanvas() {
+      const video = document.getElementById('webcam-video');
+      const canvas = document.getElementById('camera-canvas');
+      const ctx = canvas.getContext('2d');
+      const filterMode = document.getElementById('cam-filter-mode').value;
+
+      function processFrame() {
+        if (video.paused || video.ended) return;
+
+        // 1. Draw original frame at low resolution grid
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // 2. Apply 2000s Digicam Filters (Pixelation, Color shift, Noise grain)
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imgData.data;
+
+        for (let i = 0; i < data.length; i += 4) {
+          let r = data[i];
+          let g = data[i + 1];
+          let b = data[i + 2];
+
+          if (filterMode === 'digicam2005') {
+            // Warm yellow/green vintage shift + contrast bloom
+            r = Math.min(255, r * 1.15 + 10);
+            g = Math.min(255, g * 1.10 + 5);
+            b = Math.max(0, b * 0.88 - 5);
+          } else if (filterMode === 'matrix') {
+            // Cyber green tint
+            r = Math.max(0, r * 0.3);
+            g = Math.min(255, g * 1.3 + 20);
+            b = Math.max(0, b * 0.4);
+          } else if (filterMode === 'webcam2000') {
+            // Low dynamic range & pixel compression artifacting
+            r = Math.floor(r / 32) * 32;
+            g = Math.floor(g / 32) * 32;
+            b = Math.floor(b / 32) * 32;
+          } else if (filterMode === 'sepia') {
+            r = Math.min(255, (r * 0.393) + (g * 0.769) + (b * 0.189));
+            g = Math.min(255, (r * 0.349) + (g * 0.686) + (b * 0.168));
+            b = Math.min(255, (r * 0.272) + (g * 0.534) + (b * 0.131));
+          }
+
+          // ISO Grain Noise
+          const noise = (Math.random() - 0.5) * 22;
+          data[i] = Math.min(255, Math.max(0, r + noise));
+          data[i + 1] = Math.min(255, Math.max(0, g + noise));
+          data[i + 2] = Math.min(255, Math.max(0, b + noise));
+        }
+
+        ctx.putImageData(imgData, 0, 0);
+
+        // 3. Draw Vintage Timestamp on canvas bottom right
+        const now = new Date();
+        const timestamp = `05/20/2005 ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+        
+        ctx.font = "22px 'VT323', monospace";
+        ctx.fillStyle = "#ffb400";
+        ctx.shadowColor = "black";
+        ctx.shadowBlur = 4;
+        ctx.fillText(timestamp, canvas.width - 210, canvas.height - 20);
+
+        cameraAnimationId = requestAnimationFrame(processFrame);
+      }
+
+      processFrame();
+    }
+
+    function updateFilterSettings() {
+      // Filter updates dynamically in animation loop
+    }
+
+    function takeSnapshot() {
+      playWebSound('pop');
+      const canvas = document.getElementById('camera-canvas');
+      const gallery = document.getElementById('snapshot-gallery');
+      const img = document.getElementById('snapshot-img');
+      const downloadLink = document.getElementById('download-photo-link');
+
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+      img.src = dataUrl;
+      downloadLink.href = dataUrl;
+
+      gallery.classList.remove('hidden');
+    }
+
+    // Update camera clock HUD
+    setInterval(() => {
+      const clockEl = document.getElementById('cam-clock');
+      if (clockEl) {
+        const now = new Date();
+        clockEl.textContent = `05/20/2005 ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+      }
+    }, 1000);
+
+
+    /* ========================================================================
+       6. SNAKE RETRO GAME ENGINE
+       ======================================================================== */
+    let snake = [{x: 8, y: 8}];
+    let food = {x: 12, y: 12};
+    let dx = 1, dy = 0;
+    let snakeScore = 0;
+    let snakeInterval = null;
+
+    function startSnakeGame() {
+      const canvas = document.getElementById('snakeCanvas');
+      const ctx = canvas.getContext('2d');
+      snake = [{x: 8, y: 8}, {x: 7, y: 8}, {x: 6, y: 8}];
+      dx = 1; dy = 0;
+      snakeScore = 0;
+      document.getElementById('snake-score').textContent = '0';
+
+      spawnFood();
+
+      if (snakeInterval) clearInterval(snakeInterval);
+      snakeInterval = setInterval(gameStep, 110);
+    }
+
+    function spawnFood() {
+      food = {
+        x: Math.floor(Math.random() * 16),
+        y: Math.floor(Math.random() * 16)
+      };
+    }
+
+    function gameStep() {
+      const canvas = document.getElementById('snakeCanvas');
+      const ctx = canvas.getContext('2d');
+      const gridSize = 20;
+
+      const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+
+      // Wall Collision Wrap
+      if (head.x < 0) head.x = 15;
+      if (head.x > 15) head.x = 0;
+      if (head.y < 0) head.y = 15;
+      if (head.y > 15) head.y = 0;
+
+      // Self collision check
+      for (let segment of snake) {
+        if (segment.x === head.x && segment.y === head.y) {
+          clearInterval(snakeInterval);
+          alert(`Game Over! Pontuação Final: ${snakeScore}`);
+          return;
+        }
+      }
+
+      snake.unshift(head);
+
+      // Food check
+      if (head.x === food.x && head.y === food.y) {
+        snakeScore += 10;
+        document.getElementById('snake-score').textContent = snakeScore;
+        playWebSound('pop');
+        spawnFood();
+      } else {
+        snake.pop();
+      }
+
+      // Render Nokia LCD Screen
+      ctx.fillStyle = '#86c06c'; // Classic Nokia Green
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw Grid lines
+      ctx.strokeStyle = 'rgba(0,0,0,0.05)';
+      for (let i = 0; i < 16; i++) {
+        ctx.beginPath(); ctx.moveTo(i * gridSize, 0); ctx.lineTo(i * gridSize, 320); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0, i * gridSize); ctx.lineTo(320, i * gridSize); ctx.stroke();
+      }
+
+      // Draw Snake
+      ctx.fillStyle = '#0f380f';
+      snake.forEach(seg => {
+        ctx.fillRect(seg.x * gridSize + 1, seg.y * gridSize + 1, gridSize - 2, gridSize - 2);
+      });
+
+      // Draw Food
+      ctx.fillStyle = '#0f380f';
+      ctx.beginPath();
+      ctx.arc(food.x * gridSize + gridSize/2, food.y * gridSize + gridSize/2, gridSize/3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function changeSnakeDirection(dir) {
+      if (dir === 'UP' && dy === 0) { dx = 0; dy = -1; }
+      if (dir === 'DOWN' && dy === 0) { dx = 0; dy = 1; }
+      if (dir === 'LEFT' && dx === 0) { dx = -1; dy = 0; }
+      if (dir === 'RIGHT' && dx === 0) { dx = 1; dy = 0; }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp') changeSnakeDirection('UP');
+      if (e.key === 'ArrowDown') changeSnakeDirection('DOWN');
+      if (e.key === 'ArrowLeft') changeSnakeDirection('LEFT');
+      if (e.key === 'ArrowRight') changeSnakeDirection('RIGHT');
+    });
+
+
+    /* ========================================================================
+       7. SYSTEM CLOCK & INITIALIZATION
+       ======================================================================== */
+    function updateSystemClock() {
+      const now = new Date();
+      const clockEl = document.getElementById('system-clock');
+      if (clockEl) {
+        clockEl.textContent = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+      }
+    }
+    setInterval(updateSystemClock, 1000);
+    updateSystemClock();
+
+    window.onload = function() {
+      // Auto open Computer Specs on start for immediate nostalgia
+      setTimeout(() => openWindow('win-computer'), 400);
+      startSnakeGame();
+    };
+  </script>
+</body>
+</html>
